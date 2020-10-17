@@ -52,7 +52,7 @@
         function armyTemplate(item,game){
             let suffix = '';
             if(item.on_move && !game.finnished){
-                suffix = '<button class="btn btn-sm btn-info next-attack">Attack</button>';
+                suffix = `<button class="btn btn-sm btn-info next-attack">Attack ${item.attack_strategy}</button>`;
             }
             let template = '<li>'+item.order+' '+item.name+': '+item.current_units+'('+item.start_units+')'+suffix+'</li>';
             return template;
