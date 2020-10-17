@@ -92,6 +92,7 @@
                         'game_id':$(this).data('id')
                     }
                 }).done(function(response){
+                    $('#army-form').show();
                     $('.create-game').hide();
                     $('.leave-game').show();
                     $('.game-info span').text(response.game.id);
@@ -114,6 +115,22 @@
                 });
             });
             
+            $('.active-game').on('click','button.next-attack',function(){               
+                $.ajax({
+                    url: "{{route('attack')}}",
+                    data: {
+                        'game_id':$('.game-id-input').val()
+                    }
+                }).done(function(response){
+                    if(response.game.finished){
+                       $('#army-form').hide(); 
+                       $('.games-wrapper').hide();
+                    }
+                    $('.game-info span').text(response.game.id);
+                    refreshArmies(armiesWrapper,response.game,response.armies);
+                });
+            });
+            
             $('.create-army').click(function(event){
                 event.preventDefault(); 
                 $.ajax({
@@ -124,23 +141,9 @@
                 }).done(function(response){ 
                     $('.game-info span').text(response.game.id);
                      refreshArmies(armiesWrapper,response.game,response.armies);
-
                 });    
             });
-            
-            $('.active-game').on('click','button.next-attack',function(){               
-                $.ajax({
-                    url: "{{route('attack')}}",
-                    data: {
-                        'game_id':$('.game-id-input').val()
-                    }
-                }).done(function(response){
-                    $('.game-info span').text(response.game.id);
-                    refreshArmies(armiesWrapper,response.game,response.armies);
-                });
-            });
-            
-            
+                       
             $('button.autorun').click(function(){
                 $.ajax({
                     url: "{{route('autorun')}}",
@@ -148,6 +151,8 @@
                         'game_id':$('.game-id-input').val()
                     }
                 }).done(function(response){
+                    $('#army-form').hide();
+                    $('.games-wrapper').hide();
                     refreshArmies(armiesWrapper,response.game, response.armies);
                 });
             });
