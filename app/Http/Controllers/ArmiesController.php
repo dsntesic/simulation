@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Model\Army;
 use App\Model\Game;
 
+
 class ArmiesController extends GamesController
 {
     /**

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Model\Game;
 use App\Model\Army;
+use Illuminate\Support\Facades\DB;
 
 class GamesController extends Controller
 {
@@ -13,7 +14,7 @@ class GamesController extends Controller
      * @return object json response with all games 
      */
     public function lists() 
-    {            
+    {         
         $games = Game::with([
             'armies' => function($query){
                 return $query->units();
