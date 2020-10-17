@@ -16,7 +16,7 @@ class ArmiesController extends GamesController
     public function create() 
     { 
         $game = Game::find(request()->game_id);
-        $existingArmies = Army::forGame($game->id)->get();
+        $existingArmies = Army::forGame($game->id)->units()->get();
         foreach($existingArmies as $existingArmy){
             $existingArmy->update([
                 'order' => $existingArmy->order + 1
@@ -129,7 +129,7 @@ class ArmiesController extends GamesController
                 'order' => $key + 1 
             ]);
         }
-        $armies = Army::forGame($gameId)->get();
+        $armies = Army::forGame($gameId)->units()->get();
     }
     
     /**
